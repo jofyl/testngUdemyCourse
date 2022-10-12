@@ -45,3 +45,20 @@ the you use the object "sa" instead of "Assert"
 But if you run the test as is, the test will show as passing
 at the end of the method, you must call assertAll()
 sa.assertAll()
+
+Basic Annotations
+=================
+@BeforeMethod
+public void setUp(){...}
+method name does not have to be setUp, what is important is the annotation
+=> called before every method
+
+@AfterMethod
+public void tearDown(){...}
+=> called after every method
+=> will be called even if method exits because of a hard assertion failure
+
+We use these methods to avoind code repetition
+
+@BeforeClass => executes before any method in the class executes, including @BeforeMethod
+@AfterClass => executes after the last method in the class executes, include the @AfterMethod

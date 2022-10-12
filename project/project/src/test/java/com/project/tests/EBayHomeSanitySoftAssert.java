@@ -20,7 +20,7 @@ public class EBayHomeSanitySoftAssert {
     @Test
     public void emptySearchTest2() {
         sa.assertEquals(1, 2, "hello asset 3");
-        
+
         sa.assertAll();
     }
 
