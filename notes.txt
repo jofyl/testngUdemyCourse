@@ -78,8 +78,7 @@ Example:
 
 A suite can have mutiple <test>
 a <test> can have multiple classes in it
-
-The 
+test here refers to the testing type we are performing
 
 so for testNG, the class is not considered a Suite
 
@@ -105,3 +104,9 @@ specifying select methods to run
 </class>
 
 we also have <exclude>
+
+More Annotations
+================
+
+<suite name="sanity test suite"> => @BeforeSuite and @AfterSuite
+    <test name="release 2019.5 testing"> => @BeforeTest and @AfterTest
