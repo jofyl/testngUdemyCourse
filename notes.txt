@@ -1,0 +1,39 @@
+TestNG Annotations
+==================
+@Test denotes a method as test case
+
+If no testsuite was specified, then testng will create a temp testsuite on its own
+it calls it default testsuite
+
+For slf4j issues, you always need at least 2:
+the main api, and the 2nd+ libs you need, for example
+
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>2.0.3</version>
+</dependency>
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-nop</artifactId>
+    <version>2.0.3</version>
+    <scope>test</scope>
+</dependency>
+
+Assertions
+==========
+Assert.assertEquals(1, 2, "hello asset");
+adding a message to the asset output is good, it help with issue triage later
+
+there are many other Asserts, we have (most widely used)
+assertTrue
+assertFalse
+assetNull
+assertNotEquals
+
+When an assertions fails, the test is aborted, the method exists but not the classes
+i.e if a class has other test methods, they will execute as well
+
+however, when a method exists, all remaining intructions in it do not get executed
+
+These assertions are called "hard assertions"
