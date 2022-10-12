@@ -62,3 +62,46 @@ We use these methods to avoind code repetition
 
 @BeforeClass => executes before any method in the class executes, including @BeforeMethod
 @AfterClass => executes after the last method in the class executes, include the @AfterMethod
+
+TestNg XML Config
+=================
+Example:
+<suite name="sanity test suite">
+    <test name="release 2019.5 testing">
+        <classes>
+            <class name="com.project.tests.EBayHomeSanity"></class>
+            <class name="com.project.tests.EBayHomeSanitySoftAssert"></class>
+            <class name="com.project.pages.EBayHomeSanityMain"></class>
+        </classes>
+    </test>
+</suite>
+
+A suite can have mutiple <test>
+a <test> can have multiple classes in it
+
+The 
+
+so for testNG, the class is not considered a Suite
+
+For the full possible Configs using the XML file, refer to:
+https://testng.org/doc/documentation-main.html#testng-xml
+
+and
+https://testng.org/doc/documentation-main.html#methods
+
+IMPORTANT: you can point to any package you want, it does not have to be in the Test Sources Root Directory "test/java"
+
+For example, the below test class is in main/java
+<class name="com.project.pages.EBayHomeSanityMain"></class>
+
+=> you might need this if you want to package your tests in a jar, as the "test" Directory normally gets ingnored when packaging the jar file
+
+specifying select methods to run
+<class name="test.Test1">
+  <methods>
+    <include name="m1" />
+    <include name="m2" />
+  </methods>
+</class>
+
+we also have <exclude>

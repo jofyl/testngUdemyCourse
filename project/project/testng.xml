@@ -1,0 +1,9 @@
+<suite name="sanity test suite">
+    <test name="release 2019.5 testing">
+        <classes>
+            <class name="com.project.tests.EBayHomeSanity"></class>
+            <class name="com.project.tests.EBayHomeSanitySoftAssert"></class>
+            <class name="com.project.pages.EBayHomeSanityMain"></class>
+        </classes>
+    </test>
+</suite>
