@@ -37,3 +37,11 @@ i.e if a class has other test methods, they will execute as well
 however, when a method exists, all remaining intructions in it do not get executed
 
 These assertions are called "hard assertions"
+
+Soft Assertions
+---------------
+SoftAssert sa = new SoftAssert();
+the you use the object "sa" instead of "Assert"
+But if you run the test as is, the test will show as passing
+at the end of the method, you must call assertAll()
+sa.assertAll()
