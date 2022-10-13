@@ -207,3 +207,25 @@ AppLib is alwasy the entry point for everything
 
 So to summarize (UPDATED again):
 ElementsClass -> PageClass -> {PageLib, FlowLib} -> AppLib -> abstract BaseTestClass -> TestClass
+
+Execute tests in parallel
+=========================
+<suite name="sanity test suite" parallel="classes" thread-count="2">
+    <test name="release 2019.5 testing">
+        <classes>
+            <class name="com.project.tests.EBayHomeSanity"></class>
+            <class name="com.project.tests.EBayHomeSanitySoftAssert"></class>
+            <class name="com.project.pages.EBayHomeSanityMain"></class>
+        </classes>
+    </test>
+</suite>
+
+parallel="classes" or "test" (as in the <test> tag level) or "method" => determines what runs in parrallel
+
+TestNG output Reports
+=====================
+TestNG already comes with a HTML report generator -> it is basic bt enough
+additional libs can be used (up to you to seach for) if you want to generate better looking reports
+There probably is an XML files somewhere that contains the full test results (data form)
+
+
