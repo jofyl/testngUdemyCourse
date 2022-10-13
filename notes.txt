@@ -165,3 +165,42 @@ public boolean isSearchButtonEnabled() {
 So to summarize:
 ElementsClass -> PageClass -> TestClass
 it is a 3 layer structure
+
+Automation Framework Design
+===========================
+Base Test Class
+---------------
+Create a base class that contains the setups and teardowns
+better make the class as abstract, as normally, it only contains setup and teardowns
+
+@BeforeX and @AfterX methods get inherited with their annotations
+
+in the base test class, we do not go about creating the pages, instead we group them in Libraries
+
+Page Library
+------------
+The page Library is simply a class (say we call it PageLib) that instantiates TestObjectClassPage objects and has getter methods that return them
+Most of these class require a driver, so you will be passing it nearly everyWhere
+
+Then we create an app Library class (say we call it AppLib) that instantiates the PageLib class (and other page Library classes)
+with getter method to return the PageLib object
+
+then in te base class, we create an object of AppLib
+
+The in the abstract base test class
+we instantiate an AppLib Object
+and we add a getter method to returns the AppLib Object
+
+So to summarize (UPDATED):
+ElementsClass -> PageClass -> PageLib -> AppLib -> abstract BaseTestClass -> TestClass
+
+Flow Library
+------------
+a flow library encapsulates the code related to navigating to a uLR
+
+public void visitUrl(String url) {
+  this.driver.get(url)
+}
+
+so you create said class, then you instantiate it in the AppLib class
+AppLib is alwasy the entry point for everything
