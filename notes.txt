@@ -204,3 +204,6 @@ public void visitUrl(String url) {
 
 so you create said class, then you instantiate it in the AppLib class
 AppLib is alwasy the entry point for everything
+
+So to summarize (UPDATED again):
+ElementsClass -> PageClass -> {PageLib, FlowLib} -> AppLib -> abstract BaseTestClass -> TestClass
