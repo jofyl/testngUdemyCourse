@@ -110,3 +110,58 @@ More Annotations
 
 <suite name="sanity test suite"> => @BeforeSuite and @AfterSuite
     <test name="release 2019.5 testing"> => @BeforeTest and @AfterTest
+
+For page Factory in Selenium
+============================
+The below is for PageFactory
+----------------------------
+create a class TestObjectClassElements
+then set the locators: 
+@FindBy(css="...") public WebElement myButton, this is a css locator, there are other types of locators
+and a driver
+WebDriver driver;
+
+then in the constructor
+public TestObjectClassElements(WebDriver driver) {
+  this.driver = driver;
+  PageFactory.initElements(driver, this);
+}
+
+Then when you need it, simply call it instantiate a new TestObjectClassElements object
+Usually 1 Class containing all the elements per page as well, it can be split into multiple classes of course
+
+PageObjectModel
+---------------
+You do no call the elements from the PageFactory class directly, you need 1 more middle layer
+
+TestObjectClassPage -> 1 class per page
+
+create the class, declare the web elements you want to use, usually 1 Class containing all the elements per page as well
+Then you define a method per action that the user does, or event a method
+
+public class TestObjectClassPage {
+  WebDriver driver;
+  TestObjectClassElements elements;
+
+  public TestObjectClassPage(WebDriver driver) {
+    this.driver = driver;
+    this.elements = new TestObjectClassElements(driver);
+  }
+
+  //Then you define a method per action that the user does
+  public void clickSearchButton() {
+    
+  }
+}
+
+Then in the test, you use the TestObjectClassPage to do the work
+
+When doing an action, there no need to return, so public void myAction() {...}
+When doind a check, we need to return the status/data of the element being fetched, for example:
+public boolean isSearchButtonEnabled() {
+  return this.elements.searchButton.isEnabled();
+}
+
+So to summarize:
+ElementsClass -> PageClass -> TestClass
+it is a 3 layer structure
