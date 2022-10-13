@@ -228,4 +228,84 @@ TestNG already comes with a HTML report generator -> it is basic bt enough
 additional libs can be used (up to you to seach for) if you want to generate better looking reports
 There probably is an XML files somewhere that contains the full test results (data form)
 
+Groups
+======
+groups can be added using the @Test annotation
+@Test(group = {"g1", "g2"})
 
+PS: the test annotation can also be added at Class level, and not jut at method level
+
+A goo practice with TestNG is to use @BeforeMethod and @AfterMethod instead of @BeforeTest and @AfterTest as the latter can lead to some classes not getting common information being set up, this also makes the methods independent of each other, especially when running tests in parallel
+
+
+<suite name="sanity test suite" parallel="classes" thread-count="2">
+    <groups>
+        <run>
+            <include name="g1"/> => telling testng which group of tests to run when using a certian XML config
+        </run>
+    </groups>
+    <test name="release 2019.5 testing">
+        <classes>
+            <class name="com.project.tests.EBayHomeSanity"></class>
+            <class name="com.project.tests.EBayHomeSanitySoftAssert"></class>
+            <class name="com.project.pages.EBayHomeSanityMain"></class>
+        </classes>
+    </test>
+</suite>
+
+Also, in order to insude that a @BeforeX tagged method always run, we can specify that, for example
+@BeforeMethod(alwaysRun=true)
+
+refer to this documentation for the possible options that annotations can take
+https://testng.org/doc/documentation-main.html#annotations
+
+TestNG Parameters
+=================
+<suite name="sanity test suite" parallel="classes" thread-count="2">
+    <parameters>
+        <parameter name"browser" value="chrome">
+    </Parameters>
+    <groups>
+        <run>
+            <include name="g1"/> => telling testng which group of tests to run when using a certian XML config
+        </run>
+    </groups>
+    <test name="release 2019.5 testing">
+        <classes>
+            <class name="com.project.tests.EBayHomeSanity"></class>
+            <class name="com.project.tests.EBayHomeSanitySoftAssert"></class>
+            <class name="com.project.pages.EBayHomeSanityMain"></class>
+        </classes>
+    </test>
+</suite>
+
+<parameter name"browser" value="chrome"> => adding params that are common to all tests, they can be configs or user login creds or even whih browser to run it on
+
+In order to make a parameter available to a method, you use annotation 
+@Parameters({"theParamName", "otherParameter"})
+public void setUp(String theParamName, String otherParameter) {...}
+=> the arguments name does not have th match the parameter name, are matched based on the order they are written in
+
+We can also make these parameters optional to be specified in the xml files by given them default values and flagging them accordingly
+=> this is also useful if we are not running the tests from the XML file
+
+@Parameters({"theParamName", "otherParameter"})
+public void setUp(@Optional("Chrome") String theParamName, String otherParameter) {...}
+
+We can also add these parms at <test> level, not just at <suite> level... <test> level params overwrite <suite> level paramters
+
+Test Dependency
+---------------
+Test can be made to run in order using:
+dependsOnGroups The list of groups this method depends on.
+dependsOnMethods The list of methods this method depends on.
+
+@Test(dependsOnMethods = {"methodName1", "methodName2"})
+
+in case methodName1 or methodName2 fail, then the test in question gets skipped
+to make the test run anyway, but always after methodName1 and methodName2, then we also give it the option alwaysRun = true
+
+@Ignore => test method or class level, the tests gets ignored
+skipped vs ignored:
+ignored: test never considered for execution
+skipped: test is considered but for some reason, it gets skipped
