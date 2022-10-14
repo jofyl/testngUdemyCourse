@@ -309,3 +309,32 @@ to make the test run anyway, but always after methodName1 and methodName2, then 
 skipped vs ignored:
 ignored: test never considered for execution
 skipped: test is considered but for some reason, it gets skipped
+
+Data Driven tests
+=================
+for this we use @DataProvider annotation to specify a method as a data provider
+that method can contains the data itself, or it can read the data from DB, excel files, csv file.... etc and return it
+
+we can put that in its own class then:
+either extend the class, or instantiate it (depending on how we implemented it)
+
+then, on top of the test method:
+@Test(dataProvider = "dataProviderMethodName", dataProviderClass = DataProviderClassName.class)
+
+dataProviderClass = DataProviderClassName.class => this is needed in case we put out data provider in a separate class
+
+By default, the data provider will be looked for in the current test class or one of its base classes. If you want to put your data provider in a different class, it needs to be a static method or a class with a non-arg constructor, and you specify the class where it can be found in the dataProviderClass attribute
+thus no need to actually extend from the data provider class you created or even instantiate it
+
+the in the test method: public void testMethod(Type arg, Type arg2, ...etc) in the same order they are returned
+the test method will then iterate for x number of times (depending on how much data it is fed)
+we say that the method is being driven by the data, or that data is driving the method, hence data driven testing
+
+Remark on Selenium driver:
+you can use implicit wait instead of Thread.sleep(x) => x is in milliseconds
+
+In the abstract base calss, in the @BeforeMethod:
+driver.manage().timeouts().implicitlyWait(3, TimeUnit.seconds)
+
+For the URLs => best set in the Page classes, that way they are bound to their relative classes
+then add a simple getter method for it
