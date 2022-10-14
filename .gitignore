@@ -1,0 +1,2 @@
+# ignore all MacOS .DS_Store file is all directories and sub-directories
+**/.DS_Store
